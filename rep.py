@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 # Imports
-import argparse
-import sys
+import argparse, sys, re
 
 # Functions
-def parseLines(lines, rFrom, rTo, removeNL = False):
+def parseLines(lines, rFrom, rTo, regex, removeNL = False):
   """ Takes lines and replaces text and if selected, removes newline characters. """
   # Loop through lines
   for line in lines:
@@ -13,9 +12,13 @@ def parseLines(lines, rFrom, rTo, removeNL = False):
     # If selected, remove newline characters
     if removeNL:
       newline = line.replace('\n', '')
-    # If line has the selected text, replace it with the target text
-    if rFrom in line:
-      newline = newline.replace(rFrom, rTo)
+    # If line has the selected text or regex, replace it with the target text
+    if regex:
+      for match in re.findall(rFrom, newline):
+        newline = newline.replace(match, rTo)
+    else:
+      if rFrom in newline:
+        newline = newline.replace(rFrom, rTo)
     lines[lines.index(line)] = newline
   return lines
 
@@ -26,6 +29,7 @@ cmdParser.add_argument("rTo", help="Replace with.")
 cmdParser.add_argument("-p", "--pipe", help="Take data from Pipe.", action="store_true")
 cmdParser.add_argument("-w", "--write", help="Write data to input file.", action="store_true")
 cmdParser.add_argument("-i", "--input", help="Input file.", default="none")
+cmdParser.add_argument("-r", "--regex", help="Use python regex for lines to replace.", action="store_true")
 args = cmdParser.parse_args()
 # Check for input.
 if not args.pipe and args.input == "none":
@@ -46,7 +50,7 @@ else:
     # Go back to the beginning
     f.seek(0)
 if not args.write:
-  for line in parseLines(lines, args.rFrom, args.rTo, True):
+  for line in parseLines(lines, args.rFrom, args.rTo, args.regex, True):
     print(line)
 else:
-  f.writelines(parseLines(lines, args.rFrom, args.rTo))
+  f.writelines(parseLines(lines, args.rFrom, args.rTo, args.regex))
