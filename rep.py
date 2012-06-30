@@ -28,8 +28,8 @@ cmdParser.add_argument("rFrom", help="Search for, to replace.")
 cmdParser.add_argument("rTo", help="Replace with.")
 cmdParser.add_argument("-p", "--pipe", help="Take data from Pipe.", action="store_true")
 cmdParser.add_argument("-w", "--write", help="Write data to input file.", action="store_true")
-cmdParser.add_argument("-i", "--input", help="Input file.", default="none")
-cmdParser.add_argument("-r", "--regex", help="Use python regex for lines to replace.", action="store_true")
+cmdParser.add_argument("-i", "--input", metavar="I", help="Input file.", default="none")
+cmdParser.add_argument("-r", "--regex", help="Use python regular expression for lines to replace.", action="store_true")
 args = cmdParser.parse_args()
 # Check for input.
 if not args.pipe and args.input == "none":
@@ -50,7 +50,6 @@ else:
     # Go back to the beginning
     f.seek(0)
 if not args.write:
-  for line in parseLines(lines, args.rFrom, args.rTo, args.regex, True):
-    print(line)
+  print("\n".join(parseLines(lines, args.rFrom, args.rTo, args.regex, True)))
 else:
   f.writelines(parseLines(lines, args.rFrom, args.rTo, args.regex))
