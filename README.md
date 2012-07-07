@@ -20,5 +20,4 @@ Run with: python3 quadratic.py
 ## rep.py
 
 Replaces text in file or pipe, can write back to file
-Run with: python3 replacer.py -i input_file whattotake replacewith
-Or for pipe: echo "piped data" | python3 replacer.py -p whattotake replacewith
+Run with: python3 rep.py --help
