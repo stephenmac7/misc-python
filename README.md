@@ -21,3 +21,8 @@ Run with: python3 quadratic.py
 
 Replaces text in file or pipe, can write back to file
 Run with: python3 qrp.py --help
+
+## blocker.py
+
+Blocks domain names by adding to /etc/hosts
+Run with: sudo python3 blocker.py
