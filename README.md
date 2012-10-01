@@ -26,3 +26,8 @@ Run with: python3 qrp.py --help
 
 Blocks domain names by adding to /etc/hosts
 Run with: sudo python3 blocker.py
+
+## pw.py
+
+Password manager for cli with passwords written in ~/.pwman
+Run with: sudo python3 pw.py -h

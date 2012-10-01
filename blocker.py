@@ -43,6 +43,11 @@ def displayHelp():
 
            You can also replace /etc/hosts 
            with /etc/blocker_backup manually.
+
+           If you would just like to update the block list you can run:
+           ./blocker.py update filename.txt
+           or
+           python3 blocker.py update filename.txt
         """)
 
 def unblock():
@@ -72,7 +77,7 @@ def main():
   try:
     action = sys.argv[1]
   except IndexError:
-    action = input("Action (block/unblock/help): ")
+    action = "help"
   if action == "block":
     block()
   elif action == "unblock":
