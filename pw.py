@@ -52,6 +52,11 @@ def print_pair(pw_dict, key):
           "Username:", Green + pw_dict[key][0] + TR,
           "Password:", Red + pw_dict[key][1] + TR)
 
+def to_clipboard(to_copy):
+    """Copies string to clipboard."""
+    command = "echo '" + to_copy + "' | xsel -b"
+    os.system(command)
+
 def print_dict(pw_dict):
     """Prints the whole password dictionary."""
     # Add eleven to account for color
@@ -126,6 +131,7 @@ def main():
     # User wants to display username/password pair
     elif opr == '-d' or opr == '--display':
         print_pair(pw_dict, args[1])
+        to_clipboard(pw_dict[args[1]][1])
     # User wants to display full dictionary
     elif opr == '-f' or opr == '--display-full':
         print_dict(pw_dict)
