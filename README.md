@@ -31,3 +31,8 @@ Run with: sudo python3 blocker.py
 
 Password manager for cli with passwords written in ~/.pwman
 Run with: sudo python3 pw.py -h
+
+## autocrypt.py
+
+Small pycrypto interface with padding
+Functions: encrypt, decrypt
